@@ -7,14 +7,10 @@ import {
   Atom,
   AudioLinesIcon,
   Cpu,
-  Glasses,
   Globe,
-  Instagram,
   Mic,
   Paperclip,
-  PinIcon,
   Search,
-  WavesIcon,
 } from "lucide-react";
 
 function ChatInputBox() {
