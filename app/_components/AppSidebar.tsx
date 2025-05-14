@@ -33,11 +33,11 @@ const menuOptions = [
     icon: Library,
     path: "/library",
   },
-  // {
-  //   title: "Sign In",
-  //   icon: LogIn,
-  //   path: "#",
-  // },
+  {
+    title: "Sign In",
+    icon: LogIn,
+    path: "/sign-in",
+  },
 ];
 
 function AppSidebar() {
