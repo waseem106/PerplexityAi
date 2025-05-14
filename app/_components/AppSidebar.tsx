@@ -14,9 +14,9 @@ import Image from "next/image";
 import { Compass, Library, LogIn, Search } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import logo from "@/public/logo.png"
+import logo from "@/public/logo.png";
+import { SignInButton, SignUpButton } from "@clerk/nextjs";
 
- 
 const menuOptions = [
   {
     title: "Home",
@@ -33,11 +33,11 @@ const menuOptions = [
     icon: Library,
     path: "/library",
   },
-  {
-    title: "Sign In",
-    icon: LogIn,
-    path: "#",
-  },
+  // {
+  //   title: "Sign In",
+  //   icon: LogIn,
+  //   path: "#",
+  // },
 ];
 
 function AppSidebar() {
@@ -68,7 +68,9 @@ function AppSidebar() {
                   </SidebarMenuItem>
                 ))}
                 <SidebarMenuItem className="p-5 mt-4">
-                  <Button className="w-full rounded-3xl">Sign Up</Button>
+                  <SignUpButton mode="modal">
+                    <Button className="w-full rounded-3xl">Sign Up</Button>
+                  </SignUpButton>
                 </SidebarMenuItem>
               </SidebarMenu>
             </SidebarContent>
@@ -77,11 +79,15 @@ function AppSidebar() {
           <SidebarGroup />
         </SidebarContent>
         <SidebarFooter className="bg-[#eff0eb] p-5">
-            <div className="mb-10">
-                <h2 className="text-gray-500">Try Now</h2>
-                <p className="text-gray-400">Upgrade for image upload, smarter AI & more copilot</p>
-                <Button className="w-full text-gray-600 bg-accent hover:bg-accent">Learn More</Button>
-            </div>
+          <div className="mb-10">
+            <h2 className="text-gray-500">Try Now</h2>
+            <p className="text-gray-400">
+              Upgrade for image upload, smarter AI & more copilot
+            </p>
+            <Button className="w-full text-gray-600 bg-accent hover:bg-accent">
+              Learn More
+            </Button>
+          </div>
         </SidebarFooter>
       </Sidebar>
     </>
