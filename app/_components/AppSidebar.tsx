@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -15,7 +15,13 @@ import { Compass, Library, LogIn, Search } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import logo from "@/public/logo.png";
-import { SignInButton, SignUpButton } from "@clerk/nextjs";
+import {
+  SignInButton,
+  SignOutButton,
+  SignUpButton,
+  UserButton,
+  useUser,
+} from "@clerk/nextjs";
 
 const menuOptions = [
   {
@@ -41,12 +47,24 @@ const menuOptions = [
 ];
 
 function AppSidebar() {
+
   const path = usePathname();
+  // const {isSignedIn } = useUser();
+  const {user,isSignedIn,isLoaded}=useUser();
+ 
+  useEffect(() => {
+    if (isLoaded) {
+      console.log(" User Details from the useUser hook:", user);
+    }
+  }, [user]);
+
   return (
     <>
+      
       <Sidebar>
         <SidebarHeader className="bg-[#eff0eb] flex p-5 ">
           <Image src={logo} alt="logo" width={150} height={170} />
+          {/* <Button onClick={myUser}>Cick me</Button> */}
         </SidebarHeader>
         <SidebarContent className="bg-[#eff0eb]">
           <SidebarGroup>
@@ -57,9 +75,7 @@ function AppSidebar() {
                     <SidebarMenuButton
                       asChild
                       className={`p-5 hover:font-bold hover:bg-transparent 
-            ${path === menuItem.path && "font-bold"}
-            `}
-                    >
+                         ${path === menuItem.path && "font-bold"} `} >
                       <a href={menuItem?.path}>
                         <menuItem.icon className="w-8 h-8" />
                         <span className="text-lg">{menuItem.title}</span>
@@ -67,10 +83,16 @@ function AppSidebar() {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
-                <SidebarMenuItem className="p-5 mt-4">
-                  <SignUpButton mode="modal">
-                    <Button className="w-full rounded-3xl">Sign Up</Button>
-                  </SignUpButton>
+                <SidebarMenuItem className=" mt-4">
+                  {!isSignedIn  ? (
+                    <SignUpButton mode="modal">
+                      <Button className="w-full rounded-3xl">Sign Up</Button>
+                    </SignUpButton>
+                  ) : (
+                    <SignOutButton>
+                      <Button className="w-full rounded-3xl">Log Out</Button>
+                    </SignOutButton>
+                  )}
                 </SidebarMenuItem>
               </SidebarMenu>
             </SidebarContent>
@@ -87,6 +109,9 @@ function AppSidebar() {
             <Button className="w-full text-gray-600 bg-accent hover:bg-accent">
               Learn More
             </Button>
+            <div className="py-2 ">
+              <UserButton />
+            </div>
           </div>
         </SidebarFooter>
       </Sidebar>
